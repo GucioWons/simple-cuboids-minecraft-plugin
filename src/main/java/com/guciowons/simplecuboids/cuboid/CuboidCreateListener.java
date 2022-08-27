@@ -8,11 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CuboidCreateListener implements Listener {
-    private List<Cuboid> cuboids = new ArrayList<>();
+
 
     @EventHandler
     public void onCuboidPlace(BlockPlaceEvent e){
@@ -26,8 +23,8 @@ public class CuboidCreateListener implements Listener {
     }
 
     private boolean createCuboid(Player player, Block placedBlock){
-        if(!playerHasCuboid(player)) {
-            cuboids.add(
+        if(!CuboidRepository.playerHasCuboid(player)) {
+            CuboidRepository.createCuboid(
                     new Cuboid(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), player, 20));
             player.sendMessage("Cuboid created!");
             return false;
@@ -36,10 +33,5 @@ public class CuboidCreateListener implements Listener {
             player.sendMessage("You already have cuboid!");
             return true;
         }
-    }
-
-    private boolean playerHasCuboid(Player player) {
-        return cuboids.stream()
-                .anyMatch(cuboid -> cuboid.getPlayer().equals(player));
     }
 }
