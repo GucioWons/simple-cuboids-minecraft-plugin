@@ -1,0 +1,6 @@
+name: SimpleCuboids
+version: '${project.version}'
+main: com.guciowons.simplecuboids.SimpleCuboids
+api-version: 1.19
+authors: [ GucioWons ]
+description: Simple cuboids plugin
