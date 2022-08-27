@@ -17,7 +17,11 @@ public class CuboidRepository {
                 .anyMatch(cuboid -> cuboid.getPlayer().equals(player));
     }
 
-    public static boolean cuboidExists(){
-        return false;
+    public static boolean cuboidExists(int blockX, int blockY, int blockZ) {
+        return cuboids.stream()
+                .anyMatch(cuboid ->
+                        cuboid.getLocationX() == blockX &&
+                        cuboid.getLocationY() == blockY &&
+                        cuboid.getLocationZ() == blockZ);
     }
 }
