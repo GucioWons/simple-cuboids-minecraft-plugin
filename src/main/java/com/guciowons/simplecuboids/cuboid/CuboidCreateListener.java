@@ -9,8 +9,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class CuboidCreateListener implements Listener {
-
-
     @EventHandler
     public void onCuboidPlace(BlockPlaceEvent e){
         Block placedBlock = e.getBlockPlaced();
@@ -25,7 +23,7 @@ public class CuboidCreateListener implements Listener {
     private boolean createCuboid(Player player, Block placedBlock){
         if(!CuboidRepository.playerHasCuboid(player)) {
             CuboidRepository.createCuboid(
-                    new Cuboid(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), player, 20));
+                    new Cuboid(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), player, 5));
             player.sendMessage("Cuboid created!");
             return false;
         }

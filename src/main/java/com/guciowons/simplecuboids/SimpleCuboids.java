@@ -1,5 +1,6 @@
 package com.guciowons.simplecuboids;
 
+import com.guciowons.simplecuboids.cuboid.CuboidBuildingListener;
 import com.guciowons.simplecuboids.cuboid.CuboidCreateListener;
 import com.guciowons.simplecuboids.cuboid.CuboidDestroyListener;
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ public final class SimpleCuboids extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new CuboidCreateListener(), this);
         Bukkit.getPluginManager().registerEvents(new CuboidDestroyListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CuboidBuildingListener(), this);
         // Plugin startup logic
 
     }

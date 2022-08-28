@@ -29,4 +29,11 @@ public class CuboidRepository {
                         cuboid.getLocationZ() == blockZ)
                 .findFirst();
     }
+
+    public static Optional<Cuboid> isBlockAtCuboid(int blockX, int blockZ){
+        return cuboids.stream()
+                .filter(cuboid -> Math.abs(cuboid.getLocationX() - blockX) <= cuboid.getSize() &&
+                        Math.abs(cuboid.getLocationZ() - blockZ) <= cuboid.getSize())
+                .findFirst();
+    }
 }
