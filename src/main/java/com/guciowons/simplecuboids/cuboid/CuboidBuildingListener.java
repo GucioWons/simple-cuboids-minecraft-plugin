@@ -8,11 +8,17 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class CuboidBuildingListener implements Listener {
+    private final CuboidRepository cuboidRepository;
+
+    public CuboidBuildingListener(CuboidRepository cuboidRepository) {
+        this.cuboidRepository = cuboidRepository;
+    }
+
     @EventHandler
     public void onBlockPlaceAtCuboid(BlockPlaceEvent e){
         Block placedBlock = e.getBlock();
         Location placedBlockLocation = placedBlock.getLocation();
-        CuboidRepository.isBlockAtCuboid(placedBlockLocation.getBlockX(), placedBlockLocation.getBlockZ())
+        cuboidRepository.isBlockAtCuboid(placedBlockLocation.getBlockX(), placedBlockLocation.getBlockZ())
                 .ifPresent(cuboid -> e.getPlayer().sendMessage("Block placed"));
     }
 
@@ -20,7 +26,7 @@ public class CuboidBuildingListener implements Listener {
     public void onBlockBreakAtCuboid(BlockBreakEvent e){
         Block brokenBlock = e.getBlock();
         Location brokenBlockLocation = brokenBlock.getLocation();
-        CuboidRepository.isBlockAtCuboid(brokenBlockLocation.getBlockX(), brokenBlockLocation.getBlockZ())
+        cuboidRepository.isBlockAtCuboid(brokenBlockLocation.getBlockX(), brokenBlockLocation.getBlockZ())
                 .ifPresent(cuboid -> e.getPlayer().sendMessage("Block broken"));
     }
 }
