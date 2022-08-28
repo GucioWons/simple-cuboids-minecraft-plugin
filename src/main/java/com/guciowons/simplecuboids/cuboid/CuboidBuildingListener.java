@@ -19,7 +19,7 @@ public class CuboidBuildingListener implements Listener {
         Block placedBlock = e.getBlock();
         Location placedBlockLocation = placedBlock.getLocation();
         cuboidRepository.isBlockAtCuboid(placedBlockLocation.getBlockX(), placedBlockLocation.getBlockZ())
-                .ifPresent(cuboid -> e.getPlayer().sendMessage("Block placed"));
+                .ifPresent(cuboid -> cancelBlockPlace(cuboid, e));
     }
 
     @EventHandler
@@ -27,6 +27,17 @@ public class CuboidBuildingListener implements Listener {
         Block brokenBlock = e.getBlock();
         Location brokenBlockLocation = brokenBlock.getLocation();
         cuboidRepository.isBlockAtCuboid(brokenBlockLocation.getBlockX(), brokenBlockLocation.getBlockZ())
-                .ifPresent(cuboid -> e.getPlayer().sendMessage("Block broken"));
+                .ifPresent(cuboid -> cancelBlockBreak(cuboid, e));
+    }
+
+    private void cancelBlockPlace(Cuboid cuboid, BlockPlaceEvent e){
+        if(!cuboid.getPlayer().equals(e.getPlayer())){
+            e.setCancelled(true);
+        }
+    }
+    private void cancelBlockBreak(Cuboid cuboid, BlockBreakEvent e){
+        if(!cuboid.getPlayer().equals(e.getPlayer())){
+            e.setCancelled(true);
+        }
     }
 }
