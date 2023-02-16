@@ -30,7 +30,12 @@ public class CuboidRepository {
                 .findFirst();
     }
 
-    public Optional<Cuboid> isBlockAtCuboid(int blockX, int blockZ){
+    public boolean isBlockAtCuboid(int blockX, int blockZ){
+        return cuboids.stream().anyMatch(cuboid -> Math.abs(cuboid.getLocationX() - blockX) <= cuboid.getSize() &&
+                Math.abs(cuboid.getLocationZ() - blockZ) <= cuboid.getSize());
+    }
+
+    public Optional<Cuboid> getBlockAtCuboid(int blockX, int blockZ){
         return cuboids.stream()
                 .filter(cuboid -> Math.abs(cuboid.getLocationX() - blockX) <= cuboid.getSize() &&
                         Math.abs(cuboid.getLocationZ() - blockZ) <= cuboid.getSize())
