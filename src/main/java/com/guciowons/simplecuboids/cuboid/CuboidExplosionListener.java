@@ -16,11 +16,9 @@ public class CuboidExplosionListener implements Listener {
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e){
-        System.out.println("dupa");
         List<Block> blocksToExplode = e.blockList();
         boolean is = blocksToExplode.stream().anyMatch(block -> cuboidRepository.isBlockAtCuboid(block.getX(), block.getZ()));
         if(is){
-            System.out.println("Works");
             e.blockList().clear();
             e.setCancelled(true);
         }
