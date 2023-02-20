@@ -2,6 +2,7 @@ package com.guciowons.simplecuboids.cuboid.creation;
 
 import com.guciowons.simplecuboids.cuboid.Cuboid;
 import com.guciowons.simplecuboids.cuboid.CuboidRepository;
+import com.guciowons.simplecuboids.files.Messages;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import java.util.Objects;
 
 public class CuboidDestroyListener implements Listener {
     private final CuboidRepository cuboidRepository;
@@ -33,10 +36,10 @@ public class CuboidDestroyListener implements Listener {
     private boolean destroyCuboid(Cuboid cuboid, Player player){
         if(cuboid.getPlayer().equals(player)){
             cuboidRepository.deleteCuboid(cuboid);
-            player.sendMessage("Cuboid destroyed!");
+            player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid destroyed")));
             return false;
         }else{
-            player.sendMessage("Its not your cuboid!");
+            player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid not yours")));
             return true;
         }
     }

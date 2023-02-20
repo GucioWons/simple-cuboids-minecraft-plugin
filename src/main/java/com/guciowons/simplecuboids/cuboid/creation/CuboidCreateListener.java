@@ -2,6 +2,7 @@ package com.guciowons.simplecuboids.cuboid.creation;
 
 import com.guciowons.simplecuboids.cuboid.Cuboid;
 import com.guciowons.simplecuboids.cuboid.CuboidRepository;
+import com.guciowons.simplecuboids.files.Messages;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Objects;
 
 public class CuboidCreateListener implements Listener {
     private final CuboidRepository cuboidRepository;
@@ -38,11 +41,11 @@ public class CuboidCreateListener implements Listener {
         if(!cuboidRepository.playerHasCuboid(player)) {
             cuboidRepository.createCuboid(
                     new Cuboid(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), player, 5));
-            player.sendMessage("Cuboid created!");
+            player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid created")));
             return false;
         }
         else {
-            player.sendMessage("You already have cuboid!");
+            player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid exists")));
             return true;
         }
     }

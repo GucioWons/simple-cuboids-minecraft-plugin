@@ -4,6 +4,7 @@ import com.guciowons.simplecuboids.cuboid.*;
 import com.guciowons.simplecuboids.cuboid.creation.CuboidCreateListener;
 import com.guciowons.simplecuboids.cuboid.creation.CuboidDestroyListener;
 import com.guciowons.simplecuboids.cuboid.damage.CuboidDamageListener;
+import com.guciowons.simplecuboids.files.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +14,15 @@ public final class SimpleCuboids extends JavaPlugin {
     public void onEnable() {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        Messages.setUp();
+        Messages.getMessagesFile().addDefault("Cuboid created", "Cuboid created!");
+        Messages.getMessagesFile().addDefault("Cuboid exists", "You already have cuboid!");
+        Messages.getMessagesFile().addDefault("Cuboid destroyed", "Cuboid destroyed!");
+        Messages.getMessagesFile().addDefault("Cuboid not yours", "Its not your cuboid!");
+        Messages.getMessagesFile().options().copyDefaults(true);
+        Messages.saveMessages();
+
         CuboidRepository cuboidRepository = new CuboidRepository();
         Bukkit.getPluginManager().registerEvents(new CuboidCreateListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidDestroyListener(cuboidRepository), this);
