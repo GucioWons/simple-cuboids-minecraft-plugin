@@ -1,0 +1,7 @@
+DisableOwnerDamage: true
+DisablePlayerDamagePlayers: true
+DisablePlayerDamageEntities: true
+DisableEntityDamagePlayers: true
+DisableEntityDamageEntities: true
+DisableExplosionDamage: false
+DisableExplosions: true

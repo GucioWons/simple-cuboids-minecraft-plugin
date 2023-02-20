@@ -1,5 +1,7 @@
-package com.guciowons.simplecuboids.cuboid;
+package com.guciowons.simplecuboids.cuboid.creation;
 
+import com.guciowons.simplecuboids.cuboid.Cuboid;
+import com.guciowons.simplecuboids.cuboid.CuboidRepository;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
