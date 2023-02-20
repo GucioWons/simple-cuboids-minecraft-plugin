@@ -19,11 +19,15 @@ public class CuboidDestroyListener implements Listener {
     public void onCuboidDestroy(BlockBreakEvent e){
         Block destroyedBlock = e.getBlock();
         if(destroyedBlock.getType() == Material.SPONGE){
-            Location location = destroyedBlock.getLocation();
-            cuboidRepository.getCuboidByLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ())
-                    .ifPresent(cuboid -> e.setCancelled(destroyCuboid(cuboid, e.getPlayer())));
+            e.setCancelled(checkIfCuboid(destroyedBlock.getLocation(), e.getPlayer()));
         }
     }
+
+    private boolean checkIfCuboid(Location location, Player player){
+        return cuboidRepository.getCuboidByLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ())
+                .map(cuboid -> destroyCuboid(cuboid, player)).orElse(false);
+    }
+
     private boolean destroyCuboid(Cuboid cuboid, Player player){
         if(cuboid.getPlayer().equals(player)){
             cuboidRepository.deleteCuboid(cuboid);

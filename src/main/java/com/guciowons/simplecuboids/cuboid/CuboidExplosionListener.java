@@ -17,10 +17,13 @@ public class CuboidExplosionListener implements Listener {
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e){
         List<Block> blocksToExplode = e.blockList();
-        boolean is = blocksToExplode.stream().anyMatch(block -> cuboidRepository.isBlockAtCuboid(block.getX(), block.getZ()));
-        if(is){
-            e.blockList().clear();
-            e.setCancelled(true);
-        }
+        blocksToExplode.stream()
+                .filter(block -> cuboidRepository.isBlockAtCuboid(block.getX(), block.getZ()))
+                .findAny().ifPresent(block -> cancelExplosion(e));
+    }
+
+    private void cancelExplosion(EntityExplodeEvent e){
+        e.blockList().clear();
+        e.setCancelled(true);
     }
 }

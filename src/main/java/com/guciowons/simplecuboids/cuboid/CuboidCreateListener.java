@@ -19,10 +19,16 @@ public class CuboidCreateListener implements Listener {
     public void onCuboidPlace(BlockPlaceEvent e){
         Block placedBlock = e.getBlockPlaced();
         ItemMeta placedBlockMeta = e.getItemInHand().getItemMeta();
-        if(placedBlock.getType() == Material.SPONGE){
-            if(placedBlockMeta.getDisplayName().equals("Cuboid")){
-                e.setCancelled(createCuboid(e.getPlayer(), placedBlock));
-            }
+        if(placedBlock.getType() == Material.SPONGE && placedBlockMeta != null){
+            e.setCancelled(checkBlockMeta(placedBlockMeta, e.getPlayer(), placedBlock));
+        }
+    }
+
+    private boolean checkBlockMeta(ItemMeta placedBlockMeta, Player player, Block placedBlock){
+        if(placedBlockMeta.getDisplayName().equals("Cuboid")){
+            return createCuboid(player, placedBlock);
+        }else{
+            return false;
         }
     }
 
