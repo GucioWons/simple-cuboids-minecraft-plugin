@@ -29,6 +29,7 @@ public final class SimpleCuboids extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CuboidBuildingListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidExplosionListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidDamageListener(cuboidRepository), this);
+        Bukkit.getPluginManager().registerEvents(new CuboidLiquidFlowListener(cuboidRepository), this);
         // Plugin startup logic
 
     }
