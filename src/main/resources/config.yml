@@ -6,5 +6,9 @@ DisableEntityDamageEntities: true
 DisableLavaFlow: true
 DisableWaterFlow: true
 DisablePistons: true
+DisableChestInteractions: true
+DisableOtherInteractions: true
+DisablePhysicalInteractions: true
+DisableFarmInteractions: true
 DisableExplosionDamage: false
 DisableExplosions: true
