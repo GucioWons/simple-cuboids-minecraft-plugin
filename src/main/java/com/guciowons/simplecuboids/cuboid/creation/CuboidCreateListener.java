@@ -3,7 +3,9 @@ package com.guciowons.simplecuboids.cuboid.creation;
 import com.guciowons.simplecuboids.cuboid.Cuboid;
 import com.guciowons.simplecuboids.cuboid.CuboidRepository;
 import com.guciowons.simplecuboids.files.Messages;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,6 +44,12 @@ public class CuboidCreateListener implements Listener {
             cuboidRepository.createCuboid(
                     new Cuboid(placedBlock.getX(), placedBlock.getY(), placedBlock.getZ(), player, 5));
             player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid created")));
+            double red = 0 / 255D;
+            double green = 127 / 255D;
+            double blue = 255 / 255D;
+            Location location = placedBlock.getLocation();
+            location.add(location.getX() > 0 ? 0.5 : -0.5, 0.0, location.getZ() > 0 ? 0.5 : -0.5);
+            location.getWorld().spawnParticle(Particle.SPELL_MOB, location, 100, red, green, blue, 1);
             return false;
         }
         else {
