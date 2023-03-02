@@ -1,4 +1,4 @@
-package com.guciowons.simplecuboids.cuboid.building;
+package com.guciowons.simplecuboids.cuboid.building.placing;
 
 import com.guciowons.simplecuboids.cuboid.BasicCuboidListener;
 import com.guciowons.simplecuboids.cuboid.Cuboid;
