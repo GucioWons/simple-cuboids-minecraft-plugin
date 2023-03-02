@@ -3,7 +3,6 @@ package com.guciowons.simplecuboids;
 import com.guciowons.simplecuboids.cuboid.*;
 import com.guciowons.simplecuboids.cuboid.building.breaking.CuboidBreakingListener;
 import com.guciowons.simplecuboids.cuboid.building.placing.CuboidPlacingListener;
-import com.guciowons.simplecuboids.cuboid.creation.CuboidCreateListener;
 import com.guciowons.simplecuboids.cuboid.damage.CuboidDamageListener;
 import com.guciowons.simplecuboids.cuboid.interactions.CuboidExplosionListener;
 import com.guciowons.simplecuboids.cuboid.interactions.CuboidInteractListener;
@@ -30,7 +29,6 @@ public final class SimpleCuboids extends JavaPlugin {
         Messages.saveMessages();
 
         CuboidRepository cuboidRepository = new CuboidRepository();
-        Bukkit.getPluginManager().registerEvents(new CuboidCreateListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidPlacingListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidBreakingListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidExplosionListener(cuboidRepository), this);
