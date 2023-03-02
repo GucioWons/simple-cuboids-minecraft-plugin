@@ -1,6 +1,7 @@
 package com.guciowons.simplecuboids.cuboid.damage;
 
 import com.guciowons.simplecuboids.SimpleCuboids;
+import com.guciowons.simplecuboids.cuboid.BasicCuboidListener;
 import com.guciowons.simplecuboids.cuboid.Cuboid;
 import com.guciowons.simplecuboids.cuboid.CuboidRepository;
 import com.guciowons.simplecuboids.cuboid.damage.strategies.DamageCancelContext;
@@ -12,12 +13,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class CuboidDamageListener implements Listener {
-    private SimpleCuboids plugin = SimpleCuboids.getPlugin(SimpleCuboids.class);
-    private final CuboidRepository cuboidRepository;
+public class CuboidDamageListener extends BasicCuboidListener {
 
     public CuboidDamageListener(CuboidRepository cuboidRepository) {
-        this.cuboidRepository = cuboidRepository;
+        super(cuboidRepository);
     }
 
     @EventHandler

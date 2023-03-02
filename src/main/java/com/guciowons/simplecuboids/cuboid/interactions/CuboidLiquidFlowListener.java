@@ -1,18 +1,18 @@
-package com.guciowons.simplecuboids.cuboid;
+package com.guciowons.simplecuboids.cuboid.interactions;
 
 import com.guciowons.simplecuboids.SimpleCuboids;
+import com.guciowons.simplecuboids.cuboid.BasicCuboidListener;
+import com.guciowons.simplecuboids.cuboid.CuboidRepository;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
-public class CuboidLiquidFlowListener implements Listener {
-    private SimpleCuboids plugin = SimpleCuboids.getPlugin(SimpleCuboids.class);
-    private final CuboidRepository cuboidRepository;
+public class CuboidLiquidFlowListener extends BasicCuboidListener {
 
     public CuboidLiquidFlowListener(CuboidRepository cuboidRepository) {
-        this.cuboidRepository = cuboidRepository;
+        super(cuboidRepository);
     }
 
     @EventHandler

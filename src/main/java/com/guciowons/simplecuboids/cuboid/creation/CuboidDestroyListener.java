@@ -21,7 +21,6 @@ public class CuboidDestroyListener implements Listener {
         this.cuboidRepository = cuboidRepository;
     }
 
-    //SMOKE
     @EventHandler
     public void onCuboidDestroy(BlockBreakEvent e){
         Block destroyedBlock = e.getBlock();

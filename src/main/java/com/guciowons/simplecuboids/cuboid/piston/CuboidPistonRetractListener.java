@@ -7,24 +7,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 
-public class CuboidPistonRetractListener implements Listener {
-    private SimpleCuboids plugin = SimpleCuboids.getPlugin(SimpleCuboids.class);
-    private final CuboidRepository cuboidRepository;
+public class CuboidPistonRetractListener extends BasicPistonListener {
 
     public CuboidPistonRetractListener(CuboidRepository cuboidRepository) {
-        this.cuboidRepository = cuboidRepository;
+        super(cuboidRepository);
     }
 
     @EventHandler
     public void onBlockPistonRetract(BlockPistonRetractEvent e){
         if(e.isSticky()) {
-            if (e.getBlocks().stream().anyMatch(block -> cuboidRepository.isBlockAtCuboid(block.getX(), block.getZ()))) {
-                Block piston = e.getBlock();
-                if (!cuboidRepository.isBlockAtCuboid(piston.getX(), piston.getZ()) &&
-                        plugin.getConfig().getBoolean("DisablePistons")) {
-                    e.setCancelled(true);
-                }
-            }
+            e.setCancelled(cancelPistonEvent(e.getBlocks(), e.getBlock()));
         }
     }
 }
