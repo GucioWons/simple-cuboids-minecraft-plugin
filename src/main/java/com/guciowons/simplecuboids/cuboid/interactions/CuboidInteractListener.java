@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.UUID;
+
 public class CuboidInteractListener extends BasicCuboidListener {
 
     public CuboidInteractListener(CuboidRepository cuboidRepository) {
@@ -21,7 +23,7 @@ public class CuboidInteractListener extends BasicCuboidListener {
         Block interacted = event.getClickedBlock();
         if(interacted != null){
             cuboidRepository.getBlockAtCuboid(interacted.getX(), interacted.getZ())
-                    .filter(cuboid -> !cuboid.getPlayer().getUniqueId().equals(event.getPlayer().getUniqueId()))
+                    .filter(cuboid -> !UUID.fromString(cuboid.getPlayerId()).equals(event.getPlayer().getUniqueId()))
                     .ifPresent(cuboid -> event.setCancelled(shouldCancelEvent(event.getAction(), interacted)));
         }
     }

@@ -9,12 +9,16 @@ import com.guciowons.simplecuboids.cuboid.interactions.CuboidInteractListener;
 import com.guciowons.simplecuboids.cuboid.interactions.CuboidLiquidFlowListener;
 import com.guciowons.simplecuboids.cuboid.piston.CuboidPistonExpandListener;
 import com.guciowons.simplecuboids.cuboid.piston.CuboidPistonRetractListener;
+import com.guciowons.simplecuboids.database.DatabaseManager;
 import com.guciowons.simplecuboids.files.DatabaseConfig;
 import com.guciowons.simplecuboids.files.Messages;
+import jakarta.persistence.EntityManagerFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SimpleCuboids extends JavaPlugin {
+    private static EntityManagerFactory entityManagerFactory;
+
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults();
@@ -26,6 +30,9 @@ public final class SimpleCuboids extends JavaPlugin {
         DatabaseConfig.getMessagesFile().addDefault("password", "password");
         DatabaseConfig.saveMessages();
 
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        entityManagerFactory = DatabaseManager.getEntityManagerFactory();
+
         Messages.setUp();
         Messages.getMessagesFile().addDefault("Cuboid created", "Cuboid created!");
         Messages.getMessagesFile().addDefault("Cuboid exists", "You already have cuboid!");
@@ -34,7 +41,7 @@ public final class SimpleCuboids extends JavaPlugin {
         Messages.getMessagesFile().options().copyDefaults(true);
         Messages.saveMessages();
 
-        CuboidRepository cuboidRepository = new CuboidRepository();
+        CuboidRepository cuboidRepository = new CuboidRepository(entityManagerFactory.createEntityManager());
         Bukkit.getPluginManager().registerEvents(new CuboidPlacingListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidBreakingListener(cuboidRepository), this);
         Bukkit.getPluginManager().registerEvents(new CuboidExplosionListener(cuboidRepository), this);
@@ -49,6 +56,6 @@ public final class SimpleCuboids extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        DatabaseManager.closeEntityManagerFactory();
     }
 }

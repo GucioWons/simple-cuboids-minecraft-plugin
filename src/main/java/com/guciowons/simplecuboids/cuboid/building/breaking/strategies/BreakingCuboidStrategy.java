@@ -8,6 +8,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class BreakingCuboidStrategy implements BreakingBlockStrategy{
     private final CuboidRepository cuboidRepository;
@@ -17,7 +18,7 @@ public class BreakingCuboidStrategy implements BreakingBlockStrategy{
 
     @Override
     public boolean shouldCancel(Cuboid cuboid, Player player, Location location){
-        if(cuboid.getPlayer().getUniqueId().equals(player.getUniqueId())){
+        if(UUID.fromString(cuboid.getPlayerId()).equals(player.getUniqueId())){
             cuboidRepository.deleteCuboid(cuboid);
             player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid destroyed")));
             location.add(location.getX() > 0 ? 0.5 : -0.5, 0.0, location.getZ() > 0 ? 0.5 : -0.5);
