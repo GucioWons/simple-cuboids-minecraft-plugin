@@ -9,16 +9,22 @@ import com.guciowons.simplecuboids.cuboid.interactions.CuboidInteractListener;
 import com.guciowons.simplecuboids.cuboid.interactions.CuboidLiquidFlowListener;
 import com.guciowons.simplecuboids.cuboid.piston.CuboidPistonExpandListener;
 import com.guciowons.simplecuboids.cuboid.piston.CuboidPistonRetractListener;
+import com.guciowons.simplecuboids.files.DatabaseConfig;
 import com.guciowons.simplecuboids.files.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SimpleCuboids extends JavaPlugin {
-
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        DatabaseConfig.setUp();
+        DatabaseConfig.getMessagesFile().addDefault("url", "example.com");
+        DatabaseConfig.getMessagesFile().addDefault("user", "user");
+        DatabaseConfig.getMessagesFile().addDefault("password", "password");
+        DatabaseConfig.saveMessages();
 
         Messages.setUp();
         Messages.getMessagesFile().addDefault("Cuboid created", "Cuboid created!");
