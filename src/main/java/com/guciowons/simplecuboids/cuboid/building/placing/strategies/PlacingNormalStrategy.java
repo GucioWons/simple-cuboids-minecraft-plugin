@@ -4,6 +4,8 @@ import com.guciowons.simplecuboids.cuboid.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class PlacingNormalStrategy implements PlacingBlockStrategy{
     private final Cuboid cuboid;
 
@@ -13,6 +15,6 @@ public class PlacingNormalStrategy implements PlacingBlockStrategy{
 
     @Override
     public boolean shouldCancel(Location placedBlockLocation, Player player) {
-        return !cuboid.getPlayer().equals(player);
+        return !UUID.fromString(cuboid.getPlayerId()).equals(player.getUniqueId());
     }
 }

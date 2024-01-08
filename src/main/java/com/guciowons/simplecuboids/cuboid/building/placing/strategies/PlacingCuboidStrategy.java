@@ -20,11 +20,11 @@ public class PlacingCuboidStrategy implements PlacingBlockStrategy{
 
     @Override
     public boolean shouldCancel(Location placedBlockLocation, Player player) {
-        if (blockName.equals("Cuboid") && !cuboidRepository.playerHasCuboid(player)) {
+        if (blockName.equals("Cuboid") && !cuboidRepository.playerHasCuboid(player.getUniqueId().toString())) {
             cuboidRepository.createCuboid(new Cuboid(
                     placedBlockLocation.getBlockX(),
                     placedBlockLocation.getBlockY(),
-                    placedBlockLocation.getBlockZ(), player, 5));
+                    placedBlockLocation.getBlockZ(), player.getUniqueId().toString(), 5));
             player.sendMessage(Objects.requireNonNull(Messages.getMessagesFile().getString("Cuboid created")));
             double red = 0 / 255D;
             double green = 127 / 255D;

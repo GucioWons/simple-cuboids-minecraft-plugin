@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.UUID;
+
 public class CuboidDamageListener extends BasicCuboidListener {
 
     public CuboidDamageListener(CuboidRepository cuboidRepository) {
@@ -26,7 +28,7 @@ public class CuboidDamageListener extends BasicCuboidListener {
     }
 
     private boolean whenDamagerIsOwner(EntityDamageByEntityEvent e, Cuboid cuboid){
-        if(cuboid.getPlayer().getUniqueId().equals(e.getDamager().getUniqueId())){
+        if(UUID.fromString(cuboid.getPlayerId()).equals(e.getDamager().getUniqueId())){
             return false;
         }else{
             return onCuboidDamage(e.getEntity(), e.getCause(), cuboid);
@@ -34,7 +36,7 @@ public class CuboidDamageListener extends BasicCuboidListener {
     }
 
     private boolean onCuboidDamage(Entity entity, EntityDamageByEntityEvent.DamageCause cause, Cuboid cuboid){
-        if(cuboid.getPlayer().getUniqueId().equals(entity.getUniqueId()) && plugin.getConfig().getBoolean("DisableOwnerDamage")) {
+        if(UUID.fromString(cuboid.getPlayerId()).equals(entity.getUniqueId()) && plugin.getConfig().getBoolean("DisableOwnerDamage")) {
             return true;
         } else{
             return whenDamagedIsNotOwner(entity, cause);
