@@ -25,10 +25,11 @@ public final class SimpleCuboids extends JavaPlugin {
         saveDefaultConfig();
 
         DatabaseConfig.setUp();
-        DatabaseConfig.getMessagesFile().addDefault("url", "example.com");
-        DatabaseConfig.getMessagesFile().addDefault("user", "user");
-        DatabaseConfig.getMessagesFile().addDefault("password", "password");
-        DatabaseConfig.saveMessages();
+        DatabaseConfig.getDatabaseConfig().addDefault("url", "example.com");
+        DatabaseConfig.getDatabaseConfig().addDefault("user", "user");
+        DatabaseConfig.getDatabaseConfig().addDefault("password", "password");
+        DatabaseConfig.getDatabaseConfig().options().copyDefaults(true);
+        DatabaseConfig.saveDatabaseConfig();
 
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         entityManagerFactory = DatabaseManager.getEntityManagerFactory();

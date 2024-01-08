@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class DatabaseConfig {
     private static File file;
-    private static FileConfiguration messagesFile;
+    private static FileConfiguration databaseConfig;
 
     public static void setUp(){
         file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("SimpleCuboids")).getDataFolder(), "database.yml");
@@ -21,16 +21,16 @@ public class DatabaseConfig {
                 //TODO
             }
         }
-        messagesFile = YamlConfiguration.loadConfiguration(file);
+        databaseConfig = YamlConfiguration.loadConfiguration(file);
     }
 
-    public static FileConfiguration getMessagesFile(){
-        return messagesFile;
+    public static FileConfiguration getDatabaseConfig(){
+        return databaseConfig;
     }
 
-    public static void saveMessages(){
+    public static void saveDatabaseConfig(){
         try {
-            messagesFile.save(file);
+            databaseConfig.save(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
