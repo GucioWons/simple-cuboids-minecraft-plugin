@@ -30,25 +30,38 @@ public class CuboidRepository {
     }
 
     public Optional<Cuboid> getCuboidByLocation(int blockX, int blockY, int blockZ) {
-        return Optional.empty();
-//                cuboids.stream()
-//                .filter(cuboid -> cuboid.getLocationX() == blockX &&
-//                        cuboid.getLocationY() == blockY &&
-//                        cuboid.getLocationZ() == blockZ)
-//                .findFirst();
+        return entityManager.createQuery("""
+                        SELECT c FROM Cuboid c
+                        WHERE c.locationX = :blockX AND c.locationY = :blockY AND c.locationZ = :blockZ
+                        """, Cuboid.class)
+                .setParameter("blockX", blockX)
+                .setParameter("blockY", blockY)
+                .setParameter("blockZ", blockZ)
+                .getResultStream()
+                .findFirst();
     }
 
     public boolean isBlockAtCuboid(int blockX, int blockZ){
-        return false;
-//                cuboids.stream().anyMatch(cuboid -> Math.abs(cuboid.getLocationX() - blockX) <= cuboid.getSize() &&
-//                Math.abs(cuboid.getLocationZ() - blockZ) <= cuboid.getSize());
+        return !entityManager.createQuery("""
+                        SELECT c FROM Cuboid c
+                        WHERE c.locationX - :blockX <= c.size
+                        AND c.locationZ - :blockZ <= c.size
+                        """, Cuboid.class)
+                .setParameter("blockX", blockX)
+                .setParameter("blockZ", blockZ)
+                .getResultList()
+                .isEmpty();
     }
 
     public Optional<Cuboid> getBlockAtCuboid(int blockX, int blockZ){
-        return Optional.empty();
-//                cuboids.stream()
-//                .filter(cuboid -> Math.abs(cuboid.getLocationX() - blockX) <= cuboid.getSize() &&
-//                        Math.abs(cuboid.getLocationZ() - blockZ) <= cuboid.getSize())
-//                .findFirst();
+        return entityManager.createQuery("""
+                        SELECT c FROM Cuboid c
+                        WHERE c.locationX - :blockX <= c.size
+                        AND c.locationZ - :blockZ <= c.size
+                        """, Cuboid.class)
+                .setParameter("blockX", blockX)
+                .setParameter("blockZ", blockZ)
+                .getResultStream()
+                .findFirst();
     }
 }
